@@ -154,7 +154,7 @@ resource "aws_placement_group" "swarm_worker_nodes" {
 }
 
 resource "aws_instance" "swarm_worker" {
-  count                     = var.swarm_manager_nodes
+  count                     = var.swarm_worker_nodes
   ami                       = data.aws_ami.latest-ubuntu.id
   instance_type             = var.aws_nodes_instance_type
   user_data                 = local.nodes_user_data
