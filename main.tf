@@ -24,5 +24,5 @@ module "terraform-ansible-docker" {
   swarm_nb_worker_nodes   = 1
   aws_nodes_instance_type = "t2.micro" # free tier
 
-  # @see other variables in modules/aws_tads/variables.tf
+  # @see other variables in modules/aws/variables.tf
 }

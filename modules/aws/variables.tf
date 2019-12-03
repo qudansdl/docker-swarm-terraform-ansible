@@ -15,7 +15,7 @@ variable "swarm_vpc_subnets" {
 # Optional variables
 variable "ssh_pubkey_name" {
   description = "Desired name of AWS SSH key pair"
-  default     = "tads"
+  default     = "terraform"
 }
 
 variable "ssh_pubkey_path" {
@@ -28,6 +28,10 @@ variable "ssh_cidr_blocks" {
   default     = ["0.0.0.0/0"] # you should definitely secure this
 }
 
+variable "web_cidr_blocks" {
+  description = "Allowed CIDR blocks for WEB Traffic"
+  default     = ["0.0.0.0/0"] # you should definitely secure this
+}
 variable "aws_nodes_instance_type" {
   description = "The AWS instance type of your Swarm nodes"
   default     = "t2.micro" # free tier
