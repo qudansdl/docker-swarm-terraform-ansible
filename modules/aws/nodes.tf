@@ -139,7 +139,7 @@ resource "aws_instance" "swarm_manager" {
   )
 }
 #Elastic IP
-resource "aws_eip" "default" {
+resource "aws_eip" "manager" {
   count = var.swarm_manager_nodes
   network_interface = element(aws_instance.swarm_manager.*.primary_network_interface_id, count.index)
   vpc      = true
@@ -205,7 +205,7 @@ resource "aws_instance" "swarm_worker" {
   )
 }
 #Elastic IP
-resource "aws_eip" "default" {
+resource "aws_eip" "worker" {
   count = var.swarm_worker_nodes
   network_interface = element(aws_instance.swarm_worker.*.primary_network_interface_id, count.index)
   vpc      = true
