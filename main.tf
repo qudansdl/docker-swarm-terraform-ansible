@@ -22,7 +22,7 @@ module "terraform-ansible-docker" {
   ]
   swarm_manager_nodes  = 3
   swarm_worker_nodes   = 1
-  aws_nodes_instance_type = "t2.micro"
+  aws_nodes_instance_type = "t2.medium"
 
 
 }
