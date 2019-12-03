@@ -62,7 +62,7 @@ variable "worker_name" {
 variable "root_block_device" {
   description = "Customize details about the root block device of the instance. See Block Devices below for details"
   type        = list(map(string))
-  default     = [{volume_size="30Gib",encrypted="true"}]
+  default     = [{volume_size="30",encrypted="true"}]
 }
 
 variable "ebs_block_device" {
@@ -82,3 +82,9 @@ variable "tags" {
   type        = map(string)
   default     = {Orchestrator="Swarm"}
 }
+variable "volume_tags" {
+  description = "A mapping of tags to assign to the resource"
+  type        = map(string)
+  default     = {Orchestrator="Swarm"}
+}
+

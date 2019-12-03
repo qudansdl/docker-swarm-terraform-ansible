@@ -133,7 +133,7 @@ resource "aws_instance" "swarm_manager" {
     },
     var.volume_tags,
   )
-
+}
 #Elastic IP
 resource "aws_eip" "default" {
   count = var.swarm_manager_nodes
