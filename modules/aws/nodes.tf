@@ -1,7 +1,7 @@
 # A security group for Swarm nodes
 resource "aws_security_group" "swarm_node" {
   name   = "terraform-${var.environment}-swarm-node"
-  vpc_id = "${aws_vpc.swarm.id}"
+  vpc_id = aws_vpc.swarm.id
 
   # Docker Swarm ports from this security group only
   ingress {
@@ -31,7 +31,7 @@ resource "aws_security_group" "swarm_node" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = "${var.ssh_cidr_blocks}"
+    cidr_blocks = var.ssh_cidr_blocks
   }
 
   # Outbound internet access
@@ -46,14 +46,14 @@ resource "aws_security_group" "swarm_node" {
 # A security group for Swarm manager nodes only
 resource "aws_security_group" "swarm_manager_node" {
   name   = "terraform-${var.environment}-swarm-manager-node"
-  vpc_id = "${aws_vpc.swarm.id}"
+  vpc_id = aws_vpc.swarm.id
 
   # HTTP access from outside
   ingress {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
-    cidr_blocks = "${var.web_cidr_blocks}"
+    cidr_blocks = var.web_cidr_blocks
   }
 
   # HTTPS access from Outside
@@ -61,7 +61,7 @@ resource "aws_security_group" "swarm_manager_node" {
     from_port       = 443
     to_port         = 443
     protocol        = "tcp"
-    cidr_blocks = "${var.web_cidr_blocks}"
+    cidr_blocks = var.web_cidr_blocks
   }
 
   # Docker Swarm manager only
@@ -70,14 +70,14 @@ resource "aws_security_group" "swarm_manager_node" {
     from_port       = 2377
     to_port         = 2377
     protocol        = "tcp"
-    security_groups = ["${aws_security_group.swarm_node.id}"]
+    security_groups = [aws_security_group.swarm_node.id]
   }
 }
 
 # Key Pair for SSH
 resource "aws_key_pair" "local" {
   key_name   = "${var.ssh_pubkey_name}-${var.environment}"
-  public_key = "${file(var.ssh_pubkey_path)}"
+  public_key = file(var.ssh_pubkey_path)
 }
 
 ## MANAGER NODES
@@ -89,12 +89,16 @@ resource "aws_placement_group" "swarm_manager_nodes" {
 
 resource "aws_instance" "swarm_manager" {
   count                     = var.swarm_manager_nodes
-  ami                       = "${data.aws_ami.latest-ubuntu.id}"
-  instance_type             = "${var.aws_nodes_instance_type}"
-  user_data                 = "${local.nodes_user_data}"
-  key_name                  = "${aws_key_pair.local.id}"
-  placement_group           = "${aws_placement_group.swarm_manager_nodes.id}"
-  vpc_security_group_ids    = ["${aws_security_group.swarm_node.id}", "${aws_security_group.swarm_manager_node.id}"]
+  ami                       = data.aws_ami.latest-ubuntu.id
+  instance_type             = var.aws_nodes_instance_type
+  user_data                 = local.nodes_user_data
+  key_name                  = aws_key_pair.local.id
+  subnet_id = length(var.network_interface) > 0 ? null : element(
+    distinct(compact(concat([var.subnet_id], var.subnet_ids))),
+    count.index,
+  )
+  placement_group           = aws_placement_group.swarm_manager_nodes.id
+  vpc_security_group_ids    = [aws_security_group.swarm_node.id, aws_security_group.swarm_manager_node.id]
   dynamic "root_block_device" {
     for_each = var.root_block_device
     content {
