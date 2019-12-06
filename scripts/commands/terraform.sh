@@ -39,7 +39,7 @@ COMMANDS:
 To list other Terraform commands and options, run: terraform -help
 
 ENVIRONMENTS:
-${environments}
+    production              deploy resources from "${ROOT_PATH}/terraform/environments/"
 
 
 EOF

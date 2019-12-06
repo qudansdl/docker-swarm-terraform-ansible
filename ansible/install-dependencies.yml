@@ -18,6 +18,7 @@
     - name: Install Terraform
       shell: >
           wget -O /tmp/terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+          && mkdir -p ~/.local/bin 
           && unzip -d ~/.local/bin /tmp/terraform.zip
           && rm -f /tmp/terraform.zip
       environment:

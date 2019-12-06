@@ -19,7 +19,8 @@
       register: has_entry_in_known_hosts_file
       changed_when: false
       ignore_errors: yes
-
+    - debug:
+        var: has_entry_in_known_hosts_file
     - name: Ignore host key on first run
       when: has_entry_in_known_hosts_file.rc == 1
       set_fact:

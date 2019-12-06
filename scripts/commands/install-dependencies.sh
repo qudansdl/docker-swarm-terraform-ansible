@@ -10,10 +10,7 @@ readonly SELF_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly SELF_NAME="$(basename "${BASH_SOURCE[0]}")"
 readonly ROOT_PATH="$(cd "${SELF_PATH}/../.." && pwd)"
 
-# shellcheck source=scripts/includes/common.sh
 source "${SELF_PATH}/../includes/common.sh"
-
-# shellcheck source=scripts/includes/localhost_ansible.sh
 source "${SELF_PATH}/../includes/localhost_ansible.sh"
 
 main () {
@@ -75,14 +72,12 @@ main () {
 
     echo "Installing Terraform..."
 
-    local playbook_skip_tags="dev_dependencies"
-    [[ "${dev_dependencies}" == true ]] && playbook_skip_tags=""
 
     if [[ "${no_password}" == true ]]; then
-        localhost_ansible_playbook "${ROOT_PATH}/ansible/install-dependencies.yml" --skip-tags "${playbook_skip_tags}"
+        localhost_ansible_playbook "${ROOT_PATH}/ansible/install-dependencies.yml" 
     else
         echo "Your SUDO password will be asked"
-        localhost_ansible_playbook "${ROOT_PATH}/ansible/install-dependencies.yml" --skip-tags "${playbook_skip_tags}" --ask-become-pass
+        localhost_ansible_playbook "${ROOT_PATH}/ansible/install-dependencies.yml"  --ask-become-pass
     fi
 
     echo "Finished!"

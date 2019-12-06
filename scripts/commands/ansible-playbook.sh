@@ -48,7 +48,7 @@ PLAYBOOKS:
     all              Provision and deploy in a single command
 
 ENVIRONMENTS:
-    Production       Deploy to production environment
+    production       Deploy to production environment
 EOF
     exit 1
 }

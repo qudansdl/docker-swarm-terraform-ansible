@@ -10,7 +10,7 @@ provider "aws" {
 }
 
 module "terraform-ansible-docker" {
-  source = "./modules/aws"
+  source = "../../modules/aws"
 
   environment = "production"
 

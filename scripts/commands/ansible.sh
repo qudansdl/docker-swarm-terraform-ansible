@@ -22,18 +22,18 @@ usage() {
 
     cat <<- EOF
 
-Usage: ${cmd} ansible ENVIRONMENT <TARGET> <ANSIBLE OPTIONS>
+Usage: ${cmd} ansible ENVIRONMENT <TARGET FROM INVENTORY> <ANSIBLE OPTIONS>
 
 Execute a custom Ansible module on your VMs
 
 Examples:
-    ${cmd} ansible vagrant docker --become -m apt -a "update_cache=yes upgrade=safe"
-    ${cmd} ansible vagrant docker -m shell -a "echo 'test' > /tmp/test"
+    ${cmd} ansible production docker --become -m apt -a "update_cache=yes upgrade=safe"
+    ${cmd} ansible production docker -m shell -a "echo 'test' > /tmp/test"
 
 To get some help, run: ansible --help
 
 ENVIRONMENTS:
-    Production       Deploy to production environment
+    production       Deploy to production environment
 
 EOF
     exit 1

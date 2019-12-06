@@ -34,3 +34,11 @@ letsencrypt: True
 
 # geerlingguy.docker role configuration
 docker_edition: ce
+
+#traefik domain name. i.e domain name where your application need to be hosted
+domains_tld: local
+domains:
+  main: "csr.{{ domains_tld }}"
+  main_www: "www.csr.{{ domains_tld }}"
+
+

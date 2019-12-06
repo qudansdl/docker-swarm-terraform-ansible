@@ -15,10 +15,10 @@ output "worker-instance_id" {
 
 output "manager_public_ip" {
   description = "List of public IP addresses assigned to the instances, if applicable"
-  value       = aws_instance.swarm_manager.*.public_ip
+  value       = aws_eip.manager.*.public_ip
 }
 
 output "worker_public_ip" {
   description = "List of public IP addresses assigned to the instances, if applicable"
-  value       = aws_instance.swarm_worker.*.public_ip
+  value       = aws_eip.worker.*.public_ip
 }
