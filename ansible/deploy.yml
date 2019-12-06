@@ -1,0 +1,28 @@
+---
+###
+# deploy playbook
+##
+# In this file, you should:
+#  - Create global overlay networks which are shared between stacks (eg. the traefik one)
+#  - Define your stacks with the "docker-stack" role
+#
+# You can use tags, so you can deploy only one stack
+# Example: ./infra-automation ansible-playbook production deploy --tags stack-traefik
+##
+
+- hosts: dockerswarm_manager[0] # executed on the first Swarm manager
+  pre_tasks:
+    - name: Create Docker traefik/apps network
+      docker_network:
+        name: apps
+        driver: overlay
+
+  roles:
+    # TRAEFIK
+    - role: docker-stack
+      tags:
+        - stack-traefik
+      vars:
+        docker_stack_name: traefik
+
+
