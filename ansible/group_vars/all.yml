@@ -42,7 +42,7 @@ domains:
   main_www: "www.csr.{{ domains_tld }}"
 
 #Mongo DB parameters
-os_user: ubuntu
+os_user: mongodb
 mongo_admin_user: admin
 mongo_admin_pass: Devops123
 mongo_packages:

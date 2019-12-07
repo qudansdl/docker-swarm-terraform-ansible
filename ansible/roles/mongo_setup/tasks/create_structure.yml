@@ -6,7 +6,7 @@
     owner: "{{ os_user }}"
     group: "{{ os_user }}"
   with_items: "{{ mongo_databases }}"
-  become: yes
+  become: no
 
 
 - name: Create PKI directory
@@ -15,7 +15,7 @@
     state: directory
     owner: "{{ os_user }}"
     group: "{{ os_user }}"
-  become: yes
+  become: no
 
 
 - name: create passwords for MongoDB
