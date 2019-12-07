@@ -142,6 +142,17 @@ ${worker_nodes}
 
 [docker:vars]
 dockerswarm_iface=eth0
+ 
+[mongo_servers]
+${manager_nodes}
+${worker_nodes}
+
+[mongo_main_server]
+${manager_nodes}
+
+[mongo_secondaries_servers]
+${worker_nodes}
+
 EOT
 
     echo "Inventory file generated: ${inventory_path}"

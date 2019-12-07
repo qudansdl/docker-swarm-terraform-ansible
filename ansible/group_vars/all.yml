@@ -41,4 +41,14 @@ domains:
   main: "csr.{{ domains_tld }}"
   main_www: "www.csr.{{ domains_tld }}"
 
-
+#Mongo DB parameters
+mongo_admin_user: admin
+mongo_admin_pass: Devops123
+mongo_packages:
+    - mongodb-org=4.0.10
+    - mongodb-org-server=4.0.10
+    - mongodb-org-shell=4.0.10
+    - mongodb-org-mongos=4.0.10
+    - mongodb-org-tools=4.0.10
+mongo_databases:
+    - {name: 'mongodb', port: 27017, cacheSizeGB: 2.0 }

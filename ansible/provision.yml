@@ -12,5 +12,7 @@
 - import_playbook: provision-02-docker-swarm.yml
   tags: [docker-swarm]
 
+- import_playbook: provision-03-mongodb.yml
+  tags: [mongo-replicaset]
 
 # ADD YOUR CUSTOM PROVISIONING PLAYBOOKS HERE
