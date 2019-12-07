@@ -1,0 +1,20 @@
+---
+  - name: Install MongoDB & Create Config of Instances in MongoDB
+    hosts: 
+      - mongo_servers
+    remote_user: "{{ os_user }}"
+    become: yes
+    become_method: sudo
+    gather_facts: no
+    roles:
+      - mongo_setup
+  
+  - name: Start Replicaset
+    hosts: 
+      - mongo_main_server
+    remote_user: "{{ os_user }}"
+    become: yes
+    become_method: sudo
+    gather_facts: no
+    roles:
+      - mongo_replicaset
