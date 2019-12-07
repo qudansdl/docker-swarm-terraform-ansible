@@ -7,5 +7,5 @@
     port: "{{ item.port }}"
     cacheSizeGB: "{{ item.cacheSizeGB }}"
   with_items: "{{ mongo_databases }}"
-  become: yes 
+  become: 
 

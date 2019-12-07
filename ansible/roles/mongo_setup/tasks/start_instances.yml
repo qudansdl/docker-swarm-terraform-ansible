@@ -1,20 +1,13 @@
 ---
 - name: Stop Instances
-  shell: "mongod -f ~/mongodb/conf.d/mongod.{{ item.name }}.conf --shutdown"
-  args:
-      executable: /bin/bash
-  with_items: "{{ mongo_databases }}"
+  service: name=mongodb state=stopped 
   register: command_result
-  become: no
+  become: yes
   ignore_errors: yes
 
 
 - name: Start Instances
-  shell: "mongod -f ~/mongodb/conf.d/mongod.{{ item.name }}.conf"
-  args:
-      executable: /bin/bash
-  with_items: "{{ mongo_databases }}"
-  become: no
-  notify: enable mongod
+  service: name=mongodb state=started
+  become: yes
 
 
