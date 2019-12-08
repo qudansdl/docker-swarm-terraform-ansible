@@ -1,5 +1,9 @@
+sleep(3000);
+
 rs.initiate();
 sleep(15000);
+
+printjson(rs.status());
 
 db.createUser({
   user: "{{mongo_admin_user}}",
@@ -9,6 +13,3 @@ db.createUser({
   ]
 });
 
-sleep(3000);
-
-printjson(rs.status());

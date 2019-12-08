@@ -1,7 +1,7 @@
 - name: Copy config of mongod
   template: 
     src: mongod.conf.j2
-    dest: "/etc/mongod.conf"
+    dest: "/etc/mongodb.conf"
   vars:
     name: "{{ item.name }}"
     port: "{{ item.port }}"

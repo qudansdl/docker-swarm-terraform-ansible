@@ -10,6 +10,7 @@
 #  are not yet in your ~/.ssh/known_hosts file
 #
 # All environments except localhost
+
 - hosts: docker:!localhost:!test
   gather_facts: no
   tasks:
@@ -25,6 +26,7 @@
       when: has_entry_in_known_hosts_file.rc == 1
       set_fact:
         ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+
 
 
 # Basic OS config
@@ -44,4 +46,17 @@
         key: "{{ item }}"
       with_items: "{{ docker_authorized_ssh_keys }}"
 
+    - name: Update /etc/hosts
+      become: true
+      blockinfile:
+          path: /etc/hosts
+          create: yes
+          block: |
+            {% for item in ansible_play_batch %}
+            {{ hostvars[item]['ansible_default_ipv4']['address'] }}   {{ item }}
+            {% endfor %}
+      become: true
+
+
     # ADD YOUR OWN TASKS HERE
+    #

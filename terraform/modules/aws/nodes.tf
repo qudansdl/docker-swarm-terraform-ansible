@@ -25,6 +25,15 @@ resource "aws_security_group" "swarm_node" {
     protocol    = "udp"
     self        = true
   }
+  # MongoDB Replication ports
+  ingress {
+    description = "MongoDB Replication ports"
+    from_port   = 27017
+    to_port     = 27019
+    protocol    = "tcp"
+    self        = true
+    
+  }
 
   # SSH for Ansible
   ingress {
