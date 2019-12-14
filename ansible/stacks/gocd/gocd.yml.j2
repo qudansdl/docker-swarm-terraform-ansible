@@ -36,7 +36,7 @@ services:
   go-agent:
     image: gocd/gocd-agent-ubuntu-16.04:v19.11.0
     environment:
-      GO_SERVER_URL: https://go-server:8154/go
+      GO_SERVER_URL: https://gocd-server:8154/go
     networks:
       - apps
     deploy:
