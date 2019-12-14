@@ -16,7 +16,7 @@ services:
   # GOCD
   # Master to be deployed in Swarm manager node
   gocd-server:
-    image: gocd/gocd-server:latest
+    image: gocd/gocd-server:v19.11.0
     ports:
       - "8153:8153"
     dns: 8.8.8.8
@@ -34,7 +34,7 @@ services:
           cpus: '0.10'
           memory: 20M
   go-agent:
-    image: gocd/gocd-agent-ubuntu-18.04:latest
+    image: gocd/gocd-agent-ubuntu-16.04:v19.11.0
     environment:
       GO_SERVER_URL: https://go-server:8154/go
     networks:
