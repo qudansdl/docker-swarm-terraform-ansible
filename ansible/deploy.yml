@@ -24,5 +24,11 @@
         - stack-traefik
       vars:
         docker_stack_name: traefik
+    # GOCD
+    - role: docker-stack
+      tags:
+        - stack-gocd
+      vars:
+        docker_stack_name: gocd
 
 
