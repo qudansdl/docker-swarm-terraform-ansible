@@ -61,7 +61,7 @@ terraform_cmd() {
         echo_red "Please upgrade it to at least version ${TADS_MIN_TERRAFORM_VERSION}"
         exit 1
     fi
-
+    # Setup terraform environments
     local environment="$1"
     shift
     if [[ ! -d "${ROOT_PATH}/terraform/environments/${environment}" ]]; then
@@ -70,18 +70,6 @@ terraform_cmd() {
     fi
 
     local command="$1"
-
-    if [[  ! -f ${ROOT_PATH}/terraform/backend/terraform.tfstate ]]; then
-     echo_red "ERROR ==> Terraform backend not setup"
-     echo_red "RUN ${cmd} terraform setup-backend"
-    fi
-
-    if [[  "${command}" == "setup-backend" && ! -f ${ROOT_PATH}/terraform/backend/terraform.tfstate ]]; then
-        [[ "${LOG_VERBOSE:-}" == true ]] &&  set -x
-        (cd "${ROOT_PATH}/terraform/backend"; terraform init && terraform apply -auto-approve -input=false)
-        set +x
-    fi
-
     if [[ ! "${command}" == "gen-ansible-inventory" ]]; then
         [[ "${LOG_VERBOSE:-}" == true ]] &&  set -x
         (cd "${ROOT_PATH}/terraform/environments/${environment}"; terraform "$@")
