@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "bucket-root" {
     ]
 
     resources = [
-      "arn:aws:s3:::${var.bucket}",
+      "arn:aws:s3:::var.s3bucket",
     ]
   }
 }
@@ -65,7 +65,7 @@ data "aws_iam_policy_document" "bucket-subdirs" {
     ]
 
     resources = [
-      "arn:aws:s3:::${var.bucket}/*",
+      "arn:aws:s3:::var.s3bucket/*",
     ]
   }
 }
