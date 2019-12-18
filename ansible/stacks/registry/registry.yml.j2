@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  registry:
+    environment:
+      - REGISTRY_STORAGE_DELETE_ENABLED=true
+    image: "registry:latest"
+    networks:
+      - traefik
+    ports:
+      - 5000:5000
+    volumes:
+      - "./config.yml:/etc/docker/registry/config.yml:ro"
+
+networks:
+  traefik:
+    driver: overlay
+    external: true

@@ -29,9 +29,11 @@
   register: stat_result
 
 - name: Copy stack resources
-  copy:
-    src: "{{ docker_stack_resources_local_path }}"
+  template:
+    src: "{{ item }}"
     dest: "~/.tads/stacks/{{ docker_stack_name }}"
+  with_fileglob:
+    - "{{ docker_stack_resources_local_path }}/*"
   when: stat_result.stat.exists
 
 - name: Deploy stack

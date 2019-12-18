@@ -10,6 +10,7 @@ version: "3.7"
 networks:
   traefik:
     driver: overlay
+    external: true
   apps:
     driver: overlay
     external: true # this network is created by Ansible, because it is shared by multiple stacks

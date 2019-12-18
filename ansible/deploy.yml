@@ -16,6 +16,11 @@
       docker_network:
         name: apps
         driver: overlay
+    - name: Create Docker traefik/apps network
+      docker_network:
+        name: traefik
+        driver: overlay
+
 
   roles:
     # TRAEFIK

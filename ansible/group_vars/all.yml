@@ -30,7 +30,7 @@ docker_authorized_ssh_keys: []
 # Enable traefik ACME feature
 # If enabled, traefik will use Let's Encrypt to get an SSL certificate automatically
 # Should be disabled only on local environments (localhost or vagrant)
-letsencrypt: True
+letsencrypt: False
 
 # geerlingguy.docker role configuration
 docker_edition: ce
