@@ -35,7 +35,7 @@ resource "aws_s3_bucket_policy" "main" {
             "Principal": {
                 "AWS": "${aws_iam_role.main.arn}"
             },
-            "Resource": "arn:aws:s3:::var.s3bucket/*",
+            "Resource": "${aws_s3_bucket.encrypted.id}/*",
             "Sid": "AddCannedAcl"
         },
         {
@@ -48,7 +48,7 @@ resource "aws_s3_bucket_policy" "main" {
             "Principal": {
                 "AWS": "${aws_iam_role.main.arn}"
             },
-            "Resource": "arn:aws:s3:::var.s3bucket"
+            "Resource": "${aws_s3_bucket.encrypted.arn}"
         }
     ],
     "Version": "2012-10-17"

@@ -1,3 +1,6 @@
 .vscode
 *.retry
 inventory/production
+**/.terraform/*
+.terraform
+**/.plugins
