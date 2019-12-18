@@ -102,6 +102,7 @@ resource "aws_instance" "swarm_manager" {
   instance_type             = var.aws_nodes_instance_type
   user_data                 = local.nodes_user_data
   key_name                  = aws_key_pair.local.id
+  iam_instance_profile      = aws_iam_instance_profile.instance-profile-docker-registry-s3.name
   subnet_id                 = element(
                               compact(aws_subnet.swarm_nodes.*.id),
                               count.index,
@@ -168,6 +169,7 @@ resource "aws_instance" "swarm_worker" {
   instance_type             = var.aws_nodes_instance_type
   user_data                 = local.nodes_user_data
   key_name                  = aws_key_pair.local.id
+  iam_instance_profile      = aws_iam_instance_profile.instance-profile-docker-registry-s3.name
   subnet_id                 = element(
                               compact(aws_subnet.swarm_nodes.*.id),
                               count.index,

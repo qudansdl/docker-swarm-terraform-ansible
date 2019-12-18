@@ -59,6 +59,12 @@ variable "worker_name" {
   default     = "Docker-Swarm-Worker"
 }
 
+variable "s3bucket" {
+  description = "Name to be used on all resources as prefix"
+  type        = string
+  default     = "dockerregistry18122108"
+}
+
 variable "root_block_device" {
   description = "Customize details about the root block device of the instance. See Block Devices below for details"
   type        = list(map(string))

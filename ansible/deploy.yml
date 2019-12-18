@@ -30,5 +30,11 @@
         - stack-gocd
       vars:
         docker_stack_name: gocd
+    # dockerregistry
+    - role: docker-stack
+      tags:
+        - stack-registry
+      vars:
+        docker_stack_name: registry
 
 

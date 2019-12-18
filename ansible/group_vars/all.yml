@@ -53,3 +53,10 @@ mongo_packages:
     - mongodb-org-tools=4.0.10
 mongo_databases:
     - {name: 'mongodb', port: 27017, cacheSizeGB: 2.0 }
+
+#S3 Bucket Settings for Docker Registry
+s3_region: ap-south-1
+s3_bucketname: dockerregistry18122108
+
+#traefik_https setting
+traefik_https: False

@@ -148,3 +148,20 @@
         --advertise-addr={{ dockerswarm_advertise_addr_string | default('eth0') }}
         --token={{ token }}
         {{ groups['dockerswarm_manager_ips'][0] }}:2377
+
+
+# insecure registry 
+- hosts: docker
+  tasks:
+    - name: Update /etc/docker/daemon.json
+      become: true
+      blockinfile:
+          path: /etc/docker/daemon.json
+          create: yes
+          block: |
+          {
+            "insecure-registries" : ["registry.app.local"]
+          }
+        
+      become: true
+

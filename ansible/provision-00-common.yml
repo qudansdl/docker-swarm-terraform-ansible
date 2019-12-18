@@ -48,14 +48,17 @@
 
     - name: Update /etc/hosts
       become: true
+      with_items: groups['dockerswarm_manager']
       blockinfile:
           path: /etc/hosts
           create: yes
+          marker: "# {mark} ANSIBLE MANAGED BLOCK {{item}}"
           block: |
-            {% for item in ansible_play_batch %}
-            {{ hostvars[item]['ansible_default_ipv4']['address'] }}   {{ item }}
+            {% for host in ansible_play_batch %}
+            {{ hostvars[host]['ansible_default_ipv4']['address'] }}   {{ host }}
             {% endfor %}
-      become: true
+            
+            hostvars[item]['ansible_default_ipv4']['address'] registry.app.local
 
 
     # ADD YOUR OWN TASKS HERE

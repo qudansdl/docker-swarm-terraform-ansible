@@ -5,10 +5,10 @@
 # Which means you can use variables defined in group_vars here
 # @see https://docs.ansible.com/ansible/latest/user_guide/playbooks_templating.html
 ##
-version: "3.6"
+version: "3.7"
 
 networks:
-  apps:
+  traefik:
     driver: overlay
     external: true
  
@@ -19,10 +19,21 @@ services:
     image: gocd/gocd-server:v19.11.0
     ports:
       - "8153:8153"
-    dns: 8.8.8.8
     networks:
-      - apps
+      - traefik
     deploy:
+      labels: 
+        - traefik.frontend.rule=PathPrefixStrip:/devops/gocd
+        - traefik.enable=true
+        - traefik.port=8153
+        - traefik.docker.network=traefik
+        # Traefik service that listens to HTTP
+        - traefik.redirectorservice.frontend.entryPoints=http
+{% if traefik_https %} # you can also use conditional statements       
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        # Traefik service that listens to HTTPS
+        - traefik.webservice.frontend.entryPoints=https   
+{% endif %} 
       placement:
         constraints:
           - node.role == manager
@@ -38,9 +49,12 @@ services:
     environment:
       GO_SERVER_URL: https://gocd-server:8154/go
     networks:
-      - apps
+      - traefik
     deploy:
       mode: replicated
+      placement:
+        constraints:
+          - node.role == manager
       replicas: 1
       resources:
         limits:
