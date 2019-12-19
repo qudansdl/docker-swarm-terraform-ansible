@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "encrypted" {
 # specific set of operations on both the root
 # of the bucket as well as its subdirectories.
 resource "aws_s3_bucket_policy" "main" {
-  bucket = "var.s3bucket"
+  bucket = "aws_s3_bucket.encrypted.id"
 
   policy = <<POLICY
 {
