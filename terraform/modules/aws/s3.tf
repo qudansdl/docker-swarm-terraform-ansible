@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "encrypted" {
 # specific set of operations on both the root
 # of the bucket as well as its subdirectories.
 resource "aws_s3_bucket_policy" "main" {
-  bucket = "${aws_s3_bucket.encrypted.id}"
+  bucket = aws_s3_bucket.encrypted.id
 
   policy = <<POLICY
 {
@@ -35,7 +35,7 @@ resource "aws_s3_bucket_policy" "main" {
             "Principal": {
                 "AWS": "${aws_iam_role.main.arn}"
             },
-            "Resource": "${aws_s3_bucket.encrypted.id}/*",
+            "Resource": "${aws_s3_bucket.encrypted.arn}/*",
             "Sid": "AddCannedAcl"
         },
         {
@@ -54,5 +54,5 @@ resource "aws_s3_bucket_policy" "main" {
     "Version": "2012-10-17"
 }
 POLICY
-}
+} 
 
