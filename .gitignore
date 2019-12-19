@@ -1,6 +1,6 @@
 .vscode
 *.retry
-inventory/production
+ansible/inventory/production
 **/.terraform/*
 .terraform
 **/.plugins
