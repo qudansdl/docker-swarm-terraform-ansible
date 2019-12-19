@@ -50,6 +50,8 @@ services:
       GO_SERVER_URL: https://gocd-server:8154/go
     networks:
       - traefik
+    volumes: 
+      - "/var/run/docker.sock:/var/run/docker.sock"
     deploy:
       mode: replicated
       placement:
