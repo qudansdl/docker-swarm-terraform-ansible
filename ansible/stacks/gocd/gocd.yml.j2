@@ -6,7 +6,9 @@
 # @see https://docs.ansible.com/ansible/latest/user_guide/playbooks_templating.html
 ##
 version: "3.7"
-
+volumes:
+  go_server_data:
+    
 networks:
   traefik:
     driver: overlay
@@ -16,24 +18,14 @@ services:
   # GOCD
   # Master to be deployed in Swarm manager node
   gocd-server:
-    image: gocd/gocd-server:v19.11.0
+    image: dhileepbalaji/gocd-server 
     ports:
       - "8153:8153"
     networks:
       - traefik
+    volumes:
+      - go_server_data:/godata
     deploy:
-      labels: 
-        - traefik.frontend.rule=PathPrefixStrip:/devops/gocd
-        - traefik.enable=true
-        - traefik.port=8153
-        - traefik.docker.network=traefik
-        # Traefik service that listens to HTTP
-        - traefik.redirectorservice.frontend.entryPoints=http
-{% if traefik_https %} # you can also use conditional statements       
-        - traefik.redirectorservice.frontend.redirect.entryPoint=https
-        # Traefik service that listens to HTTPS
-        - traefik.webservice.frontend.entryPoints=https   
-{% endif %} 
       placement:
         constraints:
           - node.role == manager
@@ -45,7 +37,7 @@ services:
           cpus: '0.10'
           memory: 20M
   go-agent:
-    image: gocd/gocd-agent-ubuntu-16.04:v19.11.0
+    image: dhileepbalaji/gocd-agent 
     environment:
       GO_SERVER_URL: https://gocd-server:8154/go
     networks:

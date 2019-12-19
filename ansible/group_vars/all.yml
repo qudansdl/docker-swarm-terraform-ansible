@@ -60,3 +60,6 @@ s3_bucketname: dockerregistry18122108
 
 #traefik_https setting
 traefik_https: False
+
+#Docker registry
+docker_registry_hostname: registry.app.local
