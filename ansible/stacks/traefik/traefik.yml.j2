@@ -68,6 +68,12 @@ services:
         mode: host
     deploy:
       mode: global
+      update_config:
+        parallelism: 1
+        delay: 30s
+      restart_policy:
+        condition: always
+        delay: 10s
       placement:
         constraints:
           - node.role == manager
@@ -89,6 +95,12 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 30s
+      restart_policy:
+        condition: always
+        delay: 10s
       resources:
         limits:
           cpus: '0.20'

@@ -11,6 +11,13 @@ services:
     volumes:
       - "./config.yml:/etc/docker/registry/config.yml:ro"
     deploy:
+      update_config:
+        parallelism: 1
+        delay: 30s
+      restart_policy:
+        condition: always
+        delay: 10s
+      replicas: 1
       labels:
         - traefik.frontend.rule=Host:{{docker_registry_hostname}}
         - traefik.enable=true
