@@ -6,21 +6,21 @@
 # allowed by the access policies.
 resource "aws_iam_role" "main" {
   name               = "default"
-  assume_role_policy = "${data.aws_iam_policy_document.default.json}"
+  assume_role_policy = data.aws_iam_policy_document.default.json
 }
 
 # Attaches an access policy to that role.
 resource "aws_iam_role_policy" "bucket-root" {
   name   = "bucket-root-s3"
-  role   = "${aws_iam_role.main.name}"
-  policy = "${data.aws_iam_policy_document.bucket-root.json}"
+  role   = aws_iam_role.main.name
+  policy = data.aws_iam_policy_document.bucket-root.json
 }
 
 # Attaches an access policy to that role.
 resource "aws_iam_role_policy" "bucket-subdirs" {
   name   = "bucket-subdirs-s3"
-  role   = "${aws_iam_role.main.name}"
-  policy = "${data.aws_iam_policy_document.bucket-subdirs.json}"
+  role   = aws_iam_role.main.name
+  policy = data.aws_iam_policy_document.bucket-subdirs.json
 }
 
 # Creates the instance profile that acts as a container for that
@@ -32,5 +32,5 @@ resource "aws_iam_role_policy" "bucket-subdirs" {
 # resource to have it at launch time.
 resource "aws_iam_instance_profile" "instance-profile-docker-registry-s3" {
   name = "instance-profile-docker-registry-s3"
-  role = "${aws_iam_role.main.name}"
+  role = aws_iam_role.main.name
 }
