@@ -32,14 +32,19 @@ docker_authorized_ssh_keys: []
 # Should be disabled only on local environments (localhost or vagrant)
 letsencrypt: False
 
-# geerlingguy.docker role configuration
-docker_edition: ce
 
-#traefik domain name. i.e domain name where your application need to be hosted
+#If enabled, traefik will use HTTP to HTTPS redirection 
+traefik_https: False
+
+#traefik domain name. i.e domain name where your application need to be hosted.
+#It will enabled once letsencrypt is set to true
 domains_tld: local
 domains:
   main: "csr.{{ domains_tld }}"
   main_www: "www.csr.{{ domains_tld }}"
+
+# geerlingguy.docker role configuration
+docker_edition: ce
 
 #Mongo DB parameters
 os_user: mongodb
@@ -57,9 +62,6 @@ mongo_databases:
 #S3 Bucket Settings for Docker Registry
 s3_region: ap-south-1
 s3_bucketname: dockerregistry18122108
-
-#traefik_https setting
-traefik_https: False
 
 #Docker registry
 docker_registry_hostname: registry.app.local

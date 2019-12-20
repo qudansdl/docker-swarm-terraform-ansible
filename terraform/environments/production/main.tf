@@ -20,9 +20,13 @@ module "terraform-ansible-docker" {
     "172.21.16.0/20",
     "172.21.32.0/20"
   ]
-  swarm_manager_nodes  = 1
-  swarm_worker_nodes   = 2
-  aws_nodes_instance_type = "t2.large"
+  swarm_manager_nodes           = 1
+  swarm_worker_nodes            = 2
+  aws_nodes_instance_type       = "t2.large"
+  s3bucket                      = "dockerregistry18122108"
+  root_block_device             = [{volume_size="30",encrypted="true"}]
+  ssh_pubkey_path               = "~/.ssh/id_rsa.pub"
+
 
 
 }
