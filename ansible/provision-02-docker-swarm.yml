@@ -160,14 +160,13 @@
         dest: "/etc/docker/daemon.json"
       notify: 
         - restart_docker
-           
+    - meta: flush_handlers
 # Handlers to restart Docker    
   handlers:
     - name: restart_docker
+      become: true
       service:
         name: docker
         state: restarted
       retries: 3
       delay: 10
-      register: result
-      until: result.rc == 0
