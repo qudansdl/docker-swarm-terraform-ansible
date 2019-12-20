@@ -158,8 +158,8 @@
       template:
         src: "files/daemon.json"
         dest: "/etc/docker/daemon.json"
-    notify: 
-      - restart_docker
+      notify: 
+        - restart_docker
            
 # Handlers to restart Docker    
   handlers:
