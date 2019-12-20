@@ -162,8 +162,12 @@
       - restart_docker
            
 # Handlers to restart Docker    
-handlers:
-  - name: restart_docker
-    service:
-      name: docker
-      state: restarted
+  handlers:
+    - name: restart_docker
+      service:
+        name: docker
+        state: restarted
+      retries: 3
+      delay: 10
+      register: result
+      until: result.rc == 0
