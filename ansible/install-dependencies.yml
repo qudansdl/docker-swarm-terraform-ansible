@@ -14,15 +14,16 @@
         state: present
       with_items:
         - jq
+        - unzip
 
     - name: Install Terraform
       shell: >
           wget -O /tmp/terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
-          && mkdir -p ~/.local/bin 
-          && unzip -d ~/.local/bin /tmp/terraform.zip
+          && mkdir /bin 
+          && unzip -d /bin /tmp/terraform.zip
           && rm -f /tmp/terraform.zip
       environment:
         TERRAFORM_VERSION: 0.12.12
       args:
-        creates: ~/.local/bin/terraform
+        creates: /bin/terraform
         warn: False
