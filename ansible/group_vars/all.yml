@@ -47,6 +47,7 @@ domains:
 docker_edition: ce
 
 #Mongo DB parameters
+mongo_hostname: mongo.app.local
 os_user: mongodb
 mongo_admin_user: admin
 mongo_admin_pass: Devops123
@@ -65,3 +66,4 @@ s3_bucketname: dockerregistry18122108
 
 #Docker registry
 docker_registry_hostname: registry.app.local
+

@@ -54,6 +54,7 @@
           block: |
             {% for host in ansible_play_batch %}
             {{ hostvars[host]['ansible_default_ipv4']['address'] }}   {{ host }}
+            {{ hostvars[host]['ansible_default_ipv4']['address'] }}   {{mongo_hostname}}
             {% endfor %}
             
     - name: Update /etc/hosts with registry.app.local
@@ -63,7 +64,7 @@
           marker: "# {mark} ANSIBLE MANAGED BLOCK {{item}}"
           block: |
 
-            {{ hostvars[item].ansible_default_ipv4.address }} registry.app.local
+            {{ hostvars[item].ansible_default_ipv4.address }} {{docker_registry_hostname}}
 
       with_items: "{{groups.dockerswarm_manager}}"
     
